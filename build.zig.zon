@@ -1,0 +1,20 @@
+.{
+    .name = "capstone-bindings-zig",
+    .version = "0.0.0",
+
+    .dependencies = .{
+        .capstone = .{
+            .url = "https://github.com/SoraTenshi/capstone-zig/archive/main.tar.gz",
+            .hash = "12208568b851169beb416f4e1c6a302076487a9c41be676319df6c1aabb10dda8456",
+        },
+    },
+
+    .paths = .{
+        "LICENSE",
+        "README.md",
+        "capstone.zig",
+        "src/",
+        "build.zig",
+        "build.zig.zon",
+    },
+}

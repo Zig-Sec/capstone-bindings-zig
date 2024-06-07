@@ -14,12 +14,6 @@ const VaArgs = extern struct {
     reg_save_area: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
 };
 
-const Malloc = ?*const fn (usize) callconv(.C) ?*anyopaque;
-const Calloc = ?*const fn (usize, usize) callconv(.C) ?*anyopaque;
-const Realloc = ?*const fn (?*anyopaque, usize) callconv(.C) ?*anyopaque;
-const Free = ?*const fn (?*anyopaque) callconv(.C) void;
-const Vsnprintf = ?*const fn ([]u8, usize, [*c]VaArgs) callconv(.C) c_int;
-
 var ALLOCATOR: ?std.mem.Allocator = null;
 
 const PtrLen = usize;
@@ -27,7 +21,7 @@ const PtrAddress = usize;
 const AllocationTable = std.AutoArrayHashMapUnmanaged(PtrAddress, PtrLen);
 var ALLOCATION_TABLE: AllocationTable = .{};
 
-pub fn malloc(size: usize) callconv(.C) ?*anyopaque {
+fn malloc(size: usize) callconv(.C) ?*anyopaque {
     if (ALLOCATOR) |alloc| {
         const allocated = alloc.alignedAlloc(u8, 16, size) catch return null;
         ALLOCATION_TABLE.put(alloc, @intFromPtr(allocated.ptr), allocated.len) catch @panic("OOM");
@@ -37,7 +31,7 @@ pub fn malloc(size: usize) callconv(.C) ?*anyopaque {
     }
 }
 
-pub fn calloc(size: usize, elements: usize) callconv(.C) ?*anyopaque {
+fn calloc(size: usize, elements: usize) callconv(.C) ?*anyopaque {
     if (ALLOCATOR) |alloc| {
         const allocated = alloc.alloc(u8, elements * size) catch return null;
         ALLOCATION_TABLE.put(alloc, @intFromPtr(allocated.ptr), allocated.len) catch @panic("OOM");
@@ -50,7 +44,7 @@ pub fn calloc(size: usize, elements: usize) callconv(.C) ?*anyopaque {
     }
 }
 
-pub fn realloc(ptr: ?*anyopaque, new_size: usize) callconv(.C) ?*anyopaque {
+fn realloc(ptr: ?*anyopaque, new_size: usize) callconv(.C) ?*anyopaque {
     if (ptr) |p| {
         if (ALLOCATOR) |alloc| {
             const prior = ALLOCATION_TABLE.fetchSwapRemove(@intFromPtr(p)) orelse @panic("Realloc called without element in list");
@@ -67,7 +61,7 @@ pub fn realloc(ptr: ?*anyopaque, new_size: usize) callconv(.C) ?*anyopaque {
     }
 }
 
-pub fn free(ptr: ?*anyopaque) callconv(.C) void {
+fn free(ptr: ?*anyopaque) callconv(.C) void {
     if (ALLOCATOR) |alloc| {
         const allocated = ALLOCATION_TABLE.fetchSwapRemove(@intFromPtr(ptr)) orelse @panic("table didn't contain item to be freed");
         const p: [*]u8 = @ptrFromInt(allocated.key);
@@ -78,6 +72,8 @@ pub fn free(ptr: ?*anyopaque) callconv(.C) void {
     }
 }
 
+extern "C" fn vsnprintf([*c]u8, usize, [*c]const u8, [*c]cs.struct___va_list_tag_1) callconv(.C) c_int;
+
 pub fn initCapstone(alloc: std.mem.Allocator) err.CapstoneError!void {
     ALLOCATOR = alloc;
 
@@ -86,6 +82,7 @@ pub fn initCapstone(alloc: std.mem.Allocator) err.CapstoneError!void {
         .calloc = &calloc,
         .realloc = &realloc,
         .free = &free,
+        .vsnprintf = &vsnprintf,
     };
 
     const err_return = cs.cs_option(0, cs.CS_OPT_MEM, @intFromPtr(&sys_mem));

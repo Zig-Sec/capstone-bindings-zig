@@ -7,12 +7,11 @@ const std = @import("std");
 const insn = @import("insn.zig");
 const err = @import("error.zig");
 
-const VaArgs = extern struct {
-    gp_offset: c_uint = @import("std").mem.zeroes(c_uint),
-    fp_offset: c_uint = @import("std").mem.zeroes(c_uint),
-    overflow_arg_area: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
-    reg_save_area: ?*anyopaque = @import("std").mem.zeroes(?*anyopaque),
-};
+pub const MallocFunction = ?*const fn (usize) callconv(.C) ?*anyopaque;
+pub const CallocFunction = ?*const fn (usize, usize) callconv(.C) ?*anyopaque;
+pub const ReallocFunction = ?*const fn (?*anyopaque, usize) callconv(.C) ?*anyopaque;
+pub const FreeFunction = ?*const fn (?*anyopaque) callconv(.C) void;
+pub const VsnprintfFunction = ?*const fn ([*c]u8, usize, [*c]const u8, anytype) callconv(.C) c_int;
 
 var ALLOCATOR: ?std.mem.Allocator = null;
 
@@ -83,6 +82,28 @@ pub fn initCapstone(alloc: std.mem.Allocator) err.CapstoneError!void {
         .realloc = &realloc,
         .free = &free,
         .vsnprintf = &vsnprintf,
+    };
+
+    const err_return = cs.cs_option(0, cs.CS_OPT_MEM, @intFromPtr(&sys_mem));
+
+    if (err.toError(err_return)) |e| {
+        return e;
+    }
+}
+
+pub fn initCapstoneManually(
+    malloc_fn: MallocFunction,
+    calloc_fn: CallocFunction,
+    realloc_fn: ReallocFunction,
+    free_fn: FreeFunction,
+    vsnprintf_fn: VsnprintfFunction,
+) err.CapstoneError!void {
+    const sys_mem = cs.cs_opt_mem{
+        .malloc = malloc_fn,
+        .calloc = calloc_fn,
+        .realloc = realloc_fn,
+        .free = free_fn,
+        .vsnprintf = @ptrCast(vsnprintf_fn),
     };
 
     const err_return = cs.cs_option(0, cs.CS_OPT_MEM, @intFromPtr(&sys_mem));

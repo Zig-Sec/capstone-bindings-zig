@@ -38,3 +38,22 @@ pub fn toError(err: c_uint) ?CapstoneError {
         else => null,
     };
 }
+
+pub fn fromError(err: CapstoneError) c_uint {
+    return switch (err) {
+        CapstoneError.Memory => 1,
+        CapstoneError.Arch => 2,
+        CapstoneError.Handle => 3,
+        CapstoneError.Csh => 4,
+        CapstoneError.Mode => 5,
+        CapstoneError.Option => 6,
+        CapstoneError.Detail => 7,
+        CapstoneError.MemSetup => 8,
+        CapstoneError.Version => 9,
+        CapstoneError.Diet => 10,
+        CapstoneError.SkipData => 11,
+        CapstoneError.X86_ATT => 12,
+        CapstoneError.X86_INTEL => 13,
+        CapstoneError.X86_MASM => 14,
+    };
+}

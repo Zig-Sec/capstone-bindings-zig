@@ -16,6 +16,8 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
         .link_libc = true,
     });
+    compiled_capstone.getEmittedIncludeTree().addStepDependencies(&compiled_capstone.step);
+
     capstone_c.addLibraryPath(compiled_capstone.getEmittedBin().dirname());
     capstone_c.linkSystemLibrary("capstone", .{ .needed = true, .preferred_link_mode = .static });
     capstone_c.addIncludePath(compiled_capstone.getEmittedIncludeTree());
@@ -36,12 +38,12 @@ pub fn build(b: *std.Build) void {
         .root_source_file = mod.root_source_file.?,
         .target = target,
         .optimize = optimize,
-        .link_libc = true,
     });
+    mod_test.step.dependOn(&compiled_capstone.step);
+
     mod_test.root_module.addImport("capstone-c", capstone_c);
 
     const run_lib_tests = b.addRunArtifact(mod_test);
-    run_lib_tests.step.dependOn(&compiled_capstone.step);
     const test_step = b.step("test", "Run the library tests");
     test_step.dependOn(&run_lib_tests.step);
 }

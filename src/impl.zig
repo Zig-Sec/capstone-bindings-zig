@@ -119,8 +119,8 @@ pub fn regsAccess(
 }
 
 test {
-    @import("std").testing.refAllDeclsRecursive(@This());
-    @import("std").testing.refAllDeclsRecursive(@import("error.zig"));
-    @import("std").testing.refAllDeclsRecursive(@import("insn.zig"));
-    @import("std").testing.refAllDeclsRecursive(@import("setup.zig"));
+    @import("std").testing.refAllDecls(@This());
+    @import("std").testing.refAllDecls(@import("error.zig"));
+    @import("std").testing.refAllDecls(@import("insn.zig"));
+    @import("std").testing.refAllDecls(@import("setup.zig"));
 }

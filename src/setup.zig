@@ -9,7 +9,7 @@ pub const MallocFunction = ?*const fn (usize) callconv(.C) ?*anyopaque;
 pub const CallocFunction = ?*const fn (usize, usize) callconv(.C) ?*anyopaque;
 pub const ReallocFunction = ?*const fn (?*anyopaque, usize) callconv(.C) ?*anyopaque;
 pub const FreeFunction = ?*const fn (?*anyopaque) callconv(.C) void;
-pub const VsnprintfFunction = ?*const fn ([*c]u8, usize, [*c]const u8, anytype) callconv(.C) c_int;
+pub const VsnprintfFunction = ?*const fn ([*]u8, usize, [*]const u8, [*]cs.struct___va_list_tag_1) callconv(.C) c_int;
 
 var ALLOCATOR: ?std.mem.Allocator = null;
 

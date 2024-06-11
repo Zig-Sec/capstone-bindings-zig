@@ -1,6 +1,4 @@
-const cs = @cImport({
-    @cInclude("capstone/capstone.h");
-});
+pub const cs = @import("capstone-c");
 
 pub const Register = enum(cs.x86_reg) {
     INVALID = 0,

@@ -1,11 +1,9 @@
-const cs = @cImport({
-    @cInclude("capstone/capstone.h");
-});
-
 const std = @import("std");
 
 const insn = @import("insn.zig");
 const err = @import("error.zig");
+
+pub const cs = @import("capstone-c");
 
 pub const MallocFunction = ?*const fn (usize) callconv(.C) ?*anyopaque;
 pub const CallocFunction = ?*const fn (usize, usize) callconv(.C) ?*anyopaque;
@@ -61,6 +59,11 @@ fn realloc(ptr: ?*anyopaque, new_size: usize) callconv(.C) ?*anyopaque {
 }
 
 fn free(ptr: ?*anyopaque) callconv(.C) void {
+    if (ptr == null) {
+        // nothing to free
+        return;
+    }
+
     if (ALLOCATOR) |alloc| {
         const allocated = ALLOCATION_TABLE.fetchSwapRemove(@intFromPtr(ptr)) orelse @panic("table didn't contain item to be freed");
         const p: [*]u8 = @ptrFromInt(allocated.key);

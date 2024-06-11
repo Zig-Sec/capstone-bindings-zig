@@ -1,3 +1,1 @@
-const cs = @cImport({
-    @cInclude("capstone/capstone.h");
-});
+pub const cs = @import("capstone-c");

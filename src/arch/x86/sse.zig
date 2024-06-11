@@ -1,6 +1,4 @@
-const cs = @cImport({
-    @cInclude("capstone/capstone.h");
-});
+pub const cs = @import("capstone-c");
 
 pub const Cc = enum(cs.x86_sse_cc) {
     INVALID = 0,

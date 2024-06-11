@@ -1,6 +1,4 @@
-usingnamespace @cImport({
-    @cInclude("capstone/capstone.h");
-});
+pub const cs = @import("capstone-c");
 
 pub const CapstoneError = error{
     Memory,

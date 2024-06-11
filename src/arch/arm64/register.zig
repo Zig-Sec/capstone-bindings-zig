@@ -1,6 +1,4 @@
-const cs = @cImport({
-    @cInclude("capstone/capstone.h");
-});
+pub const cs = @import("capstone-c");
 
 // zig fmt: off
 pub const Register = enum(cs.arm64_reg) {

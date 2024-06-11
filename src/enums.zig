@@ -1,6 +1,4 @@
-const cs = @cImport({
-    @cInclude("capstone/capstone.h");
-});
+pub const cs = @import("capstone-c");
 
 pub const Arch = enum(cs.cs_arch) {
     ARM = 0,

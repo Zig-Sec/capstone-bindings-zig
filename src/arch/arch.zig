@@ -1,7 +1,4 @@
-const cs = @cImport({
-    @cInclude("capstone/capstone.h");
-});
-
+pub const cs = @import("capstone-c");
 const x86 = @import("x86/all.zig");
 
 pub const Arch = extern union {

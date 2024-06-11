@@ -1,7 +1,3 @@
-usingnamespace @cImport({
-    @cInclude("capstone/capstone.h");
-});
-
 const arch = @import("arch/arch.zig");
 
 pub const Detail = extern struct {

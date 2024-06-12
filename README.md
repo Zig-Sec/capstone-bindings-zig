@@ -51,3 +51,8 @@ that gives the following output:
 4: src.insn.Insn@7feca4d0b3e0: 0x1013   call    0xffffffffdeadcef7
 5: src.insn.Insn@7feca4d0b4d8: 0x1018   je      0x1019
 ```
+
+## License
+I am not an expert on licenses, but from my understanding bindings can have a different license.
+So if you're using it in your project, make sure to actually verify that it is compatible with the
+actual [capstone license](https://github.com/capstone-engine/capstone#License).

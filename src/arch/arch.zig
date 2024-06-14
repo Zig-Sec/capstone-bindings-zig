@@ -1,9 +1,10 @@
 pub const cs = @import("capstone-c");
 const x86 = @import("x86/all.zig");
+const arm64 = @import("arm64/all.zig");
 
 pub const Arch = extern union {
     x86: x86.Arch,
-    arm64: cs.cs_arm64,
+    arm64: arm64.Arch,
     arm: cs.cs_arm,
     m68k: cs.cs_m68k,
     mips: cs.cs_mips,

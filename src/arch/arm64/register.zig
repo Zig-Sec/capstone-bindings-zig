@@ -4,8 +4,8 @@ pub const cs = @import("capstone-c");
 pub const Register = enum(cs.arm64_reg) {
     INVALID,
     FFR,
-    FP = 2, X29 = 2,
-    LR = 3, X30 = 3,
+    FP = 2,
+    LR = 3,
     NZCV,
     SP,
     VG,
@@ -345,5 +345,8 @@ pub const Register = enum(cs.arm64_reg) {
     V30,
     V31,
     ENDING,
+
+    pub const X29 = 2;
+    pub const X30 = 3;
 };
 // zig fmt: on

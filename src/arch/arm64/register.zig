@@ -236,8 +236,8 @@ pub const Register = enum(cs.arm64_reg) {
     X13,
     X14,
     X15,
-    X16 = 234, IP0 = 234,
-    X17 = 235, IP1 = 235,
+    X16 = 234, 
+    X17 = 235, 
     X18,
     X19,
     X20,
@@ -348,5 +348,7 @@ pub const Register = enum(cs.arm64_reg) {
 
     pub const X29 = 2;
     pub const X30 = 3;
+    pub const IP0 = 234;
+    pub const IP1 = 235;
 };
 // zig fmt: on

@@ -4,7 +4,7 @@ const VectorData = @import("vectordata.zig").VectorData;
 const Cps = @import("cps.zig");
 const Cc = @import("cc.zig").Cc;
 const Barrier = @import("barrier.zig").Barrier;
-const Operands = @import("operands.zig").Operands;
+const Operand = @import("operand.zig").Operand;
 
 pub const Arch = extern struct {
     usermode: bool,
@@ -18,5 +18,5 @@ pub const Arch = extern struct {
     post_index: bool,
     mem_barrier: Barrier,
     op_count: u8,
-    operands: [36]Operands,
+    operands: [36]Operand,
 };

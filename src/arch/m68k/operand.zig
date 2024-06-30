@@ -6,7 +6,7 @@ const OpType = @import("op_type.zig").OpType;
 const AddressMode = @import("addr_mode.zig").AddressMode;
 const BrDisp = extern struct { disp: i32, disp_size: u8 };
 
-pub const Operands = extern struct {
+pub const Operand = extern struct {
     instruction: Instruction,
     mem: OpMem,
     br_disp: BrDisp,

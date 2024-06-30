@@ -7,7 +7,7 @@ const OpType = @import("op_type.zig").OpType;
 const Svcr = @import("svcr.zig").Svcr;
 const Instruction = @import("instruction.zig").Instruction;
 
-pub const Operands = extern struct {
+pub const Operand = extern struct {
     vector_index: c_int,
     vas: Vas,
     shift: Shift,

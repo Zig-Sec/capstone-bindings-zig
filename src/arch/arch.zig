@@ -4,13 +4,14 @@ const x86 = @import("x86/all.zig");
 const arm64 = @import("arm64/all.zig");
 const arm = @import("arm/all.zig");
 const m68k = @import("m68k/all.zig");
+const mips = @import("mips/all.zig");
 
 pub const Arch = extern union {
     x86: x86.Arch,
     arm64: arm64.Arch,
     arm: arm.Arch,
     m68k: m68k.Arch,
-    mips: cs.cs_mips,
+    mips: mips.Arch,
     ppc: cs.cs_ppc,
     sparc: cs.cs_sparc,
     sysz: cs.cs_sysz,

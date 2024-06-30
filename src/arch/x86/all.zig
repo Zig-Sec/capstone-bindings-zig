@@ -31,7 +31,7 @@ const Instruction = extern union {
     mem: Memory,
 };
 
-pub const Op = extern struct {
+pub const Operand = extern struct {
     type: OpType,
     inst: Instruction,
     size: u8,
@@ -66,6 +66,6 @@ pub const Arch = extern struct {
     avx_rm: avx.Rm,
     unnamed_0: Flags,
     op_count: u8,
-    operands: [8]Op,
+    operands: [8]Operand,
     encoding: Encoding,
 };

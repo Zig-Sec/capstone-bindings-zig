@@ -1,5 +1,5 @@
 pub const Cc = @import("cc.zig").Cc;
-pub const Operands = @import("operands.zig").Operands;
+pub const Operand = @import("operand.zig").Operand;
 
 pub const Arch = extern struct {
     cc: Cc,
@@ -7,5 +7,5 @@ pub const Arch = extern struct {
     writeback: bool,
     post_index: bool,
     op_count: u8,
-    operands: [8]Operands,
+    operands: [8]Operand,
 };

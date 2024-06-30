@@ -1,0 +1,24 @@
+const cs = @import("capstone-c");
+
+pub const AddressMode = enum(cs.m68k_address_mode) {
+    NONE,
+    REG_DIRECT_DATA,
+    REG_DIRECT_ADDR,
+    REGI_ADDR,
+    REGI_ADDR_POST_INC,
+    REGI_ADDR_PRE_DEC,
+    REGI_ADDR_DISP,
+    AREGI_INDEX_8_BIT_DISP,
+    AREGI_INDEX_BASE_DISP,
+    MEMI_POST_INDEX,
+    MEMI_PRE_INDEX,
+    PCI_DISP,
+    PCI_INDEX_8_BIT_DISP,
+    PCI_INDEX_BASE_DISP,
+    PC_MEMI_POST_INDEX,
+    PC_MEMI_PRE_INDEX,
+    ABSOLUTE_DATA_SHORT,
+    ABSOLUTE_DATA_LONG,
+    IMMEDIATE,
+    BRANCH_DISPLACEMENT,
+};

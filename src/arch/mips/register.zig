@@ -1,6 +1,6 @@
 const cs = @import("capstone-c");
 
-pub const Register = enum(cs.mips_register) {
+pub const Register = enum(cs.mips_reg) {
     INVALID,
     PC,
     @"0",

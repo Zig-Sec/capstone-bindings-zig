@@ -5,7 +5,7 @@
     .dependencies = .{
         .capstone = .{
             .url = "https://github.com/SoraTenshi/capstone-zig/archive/main.tar.gz",
-            .hash = "12208568b851169beb416f4e1c6a302076487a9c41be676319df6c1aabb10dda8456",
+            .hash = "1220c76dfd839d7ac6ae03dfd88aca1c00314dc9417efe9964898af7db5548109aec",
         },
     },
 

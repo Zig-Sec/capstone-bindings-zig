@@ -8,6 +8,7 @@ const mips = @import("mips/all.zig");
 const ppc = @import("ppc/all.zig");
 const sparc = @import("sparc/all.zig");
 const sysz = @import("sysz/all.zig");
+const xcore = @import("xcore/all.zig");
 
 pub const Arch = extern union {
     x86: x86.Arch,
@@ -18,7 +19,7 @@ pub const Arch = extern union {
     ppc: ppc.Arch,
     sparc: sparc.Arch,
     sysz: sysz.Arch,
-    xcore: cs.cs_xcore,
+    xcore: xcore.Arch,
     tms320c64x: cs.cs_tms320c64x,
     m680x: cs.cs_m680x,
     evm: cs.cs_evm,

@@ -10,6 +10,11 @@ const sparc = @import("sparc/all.zig");
 const sysz = @import("sysz/all.zig");
 const xcore = @import("xcore/all.zig");
 const tms320c64x = @import("tms320c64x/all.zig");
+const m680x = @import("m680x/all.zig");
+const evm = @import("evm/all.zig");
+const mos65xx = @import("mos65xx/all.zig");
+const wasm = @import("wasm/all.zig");
+const bpf = @import("bpf/all.zig");
 
 pub const Arch = extern union {
     x86: x86.Arch,
@@ -22,11 +27,11 @@ pub const Arch = extern union {
     sysz: sysz.Arch,
     xcore: xcore.Arch,
     tms320c64x: tms320c64x.Arch,
-    m680x: cs.cs_m680x,
-    evm: cs.cs_evm,
-    mos65xx: cs.cs_mos65xx,
-    wasm: cs.cs_wasm,
-    bpf: cs.cs_bpf,
+    m680x: m680x.Arch,
+    evm: evm.Arch,
+    mos65xx: mos65xx.Arch,
+    wasm: wasm.Arch,
+    bpf: bpf.Arch,
     riscv: cs.cs_riscv,
     sh: cs.cs_sh,
     tricore: cs.cs_tricore,

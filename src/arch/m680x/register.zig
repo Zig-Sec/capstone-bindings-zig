@@ -1,0 +1,27 @@
+const cs = @import("capstone-c");
+
+pub const Register = enum(cs.m680x_reg) {
+    INVALID,
+    A,
+    B,
+    E,
+    F,
+    @"0",
+    D,
+    W,
+    CC,
+    DP,
+    MD,
+    HX,
+    H,
+    X,
+    Y,
+    S,
+    U,
+    V,
+    Q,
+    PC,
+    TMP2,
+    TMP3,
+    ENDING,
+};

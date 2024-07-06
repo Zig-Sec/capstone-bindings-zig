@@ -15,6 +15,9 @@ const evm = @import("evm/all.zig");
 const mos65xx = @import("mos65xx/all.zig");
 const wasm = @import("wasm/all.zig");
 const bpf = @import("bpf/all.zig");
+const riscv = @import("riscv/all.zig");
+const sh = @import("sh/all.zig");
+const tricore = @import("tricore/all.zig");
 
 pub const Arch = extern union {
     x86: x86.Arch,
@@ -32,7 +35,7 @@ pub const Arch = extern union {
     mos65xx: mos65xx.Arch,
     wasm: wasm.Arch,
     bpf: bpf.Arch,
-    riscv: cs.cs_riscv,
-    sh: cs.cs_sh,
-    tricore: cs.cs_tricore,
+    riscv: riscv.Arch,
+    sh: sh.Arch,
+    tricore: tricore.Arch,
 };

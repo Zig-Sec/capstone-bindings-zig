@@ -1,6 +1,6 @@
 const Register = @import("register.zig").Register;
 
-pub const OpMemory = extern struct {
+pub const OpMem = extern struct {
     base: Register,
     index: Register,
     scale: c_int,

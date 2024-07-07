@@ -112,12 +112,12 @@ pub const Register = enum(cs.arm_reg) {
     S29,
     S30,
     S31,
-    const ENDING: cs.arm_reg = 111;
-    const R13: cs.arm_reg = 12;
-    const R14: cs.arm_reg = 10;
-    const R15: cs.arm_reg = 11;
-    const SB: cs.arm_reg = 75;
-    const SL: cs.arm_reg = 76;
-    const FP: cs.arm_reg = 77;
-    const IP: cs.arm_reg = 78;
+    pub const ENDING: cs.arm_reg = 111;
+    pub const R13: cs.arm_reg = 12;
+    pub const R14: cs.arm_reg = 10;
+    pub const R15: cs.arm_reg = 11;
+    pub const SB: cs.arm_reg = 75;
+    pub const SL: cs.arm_reg = 76;
+    pub const FP: cs.arm_reg = 77;
+    pub const IP: cs.arm_reg = 78;
 };

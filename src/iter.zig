@@ -12,8 +12,8 @@ pub const Iter = struct {
 
     /// Consumes the iterator and goes to the next
     pub fn next(self: *Iter) ?*Insn {
-        if (cs.cs_disasm_iter(self.handle, self.code.ptr, self.code.len, &self.address, self.insn)) {
-            return self.insn;
+        if (cs.cs_disasm_iter(self.handle, @ptrCast(&self.code.ptr), @ptrCast(&self.code.len), &self.address, @ptrCast(self.insn))) {
+            return @ptrCast(self.insn);
         } else {
             return null;
         }
@@ -21,7 +21,7 @@ pub const Iter = struct {
 
     /// Clean up the iter
     pub fn deinit(self: Iter) void {
-        cs.cs_free(@ptrCast(self.insn.ptr), self.insn.len);
+        cs.cs_free(@ptrCast(self.insn), 1);
     }
 
     /// Returns the current address

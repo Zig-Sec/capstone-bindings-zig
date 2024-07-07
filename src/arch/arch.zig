@@ -1,5 +1,3 @@
-pub const cs = @import("capstone-c");
-
 const x86 = @import("x86/all.zig");
 const arm64 = @import("arm64/all.zig");
 const arm = @import("arm/all.zig");

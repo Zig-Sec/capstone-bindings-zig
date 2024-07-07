@@ -1,5 +1,3 @@
-const cs = @import("capstone-c");
-
 const Bc = @import("bc.zig").Bc;
 const Bh = @import("bh.zig").Bh;
 const Operand = @import("operand.zig").Operand;

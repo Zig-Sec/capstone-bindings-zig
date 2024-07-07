@@ -1,5 +1,3 @@
-const cs = @import("capstone-c");
-
 const VectorData = @import("vectordata.zig").VectorData;
 const Cps = @import("cps.zig");
 const Cc = @import("cc.zig").Cc;

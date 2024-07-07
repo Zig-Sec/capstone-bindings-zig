@@ -1,5 +1,3 @@
-const cs = @import("capstone-c");
-
 const reg = @import("register.zig");
 
 pub const Instruction = extern union {

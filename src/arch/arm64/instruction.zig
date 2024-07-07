@@ -1,5 +1,3 @@
-const cs = @import("capstone-c");
-
 const Register = @import("register.zig").Register;
 const Pstate = @import("pstate.zig").Pstate;
 const SysOp = @import("sys_op.zig").SysOp;

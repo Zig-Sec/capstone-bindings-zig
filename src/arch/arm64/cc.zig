@@ -1,4 +1,5 @@
 const cs = @import("capstone-c");
+
 pub const Cc = enum(cs.arm64_cc) {
     INVALID = 0,
     EQ = 1,

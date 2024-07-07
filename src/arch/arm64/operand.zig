@@ -1,5 +1,3 @@
-const cs = @import("capstone-c");
-
 const Vas = @import("vas.zig").Vas;
 const Shift = @import("shift.zig").Shift;
 const Extender = @import("extender.zig").Extender;

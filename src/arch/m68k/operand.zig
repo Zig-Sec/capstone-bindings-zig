@@ -1,5 +1,3 @@
-const cs = @import("capstone-c");
-
 const Instruction = @import("instruction.zig").Instruction;
 const OpMem = @import("op_mem.zig").OpMem;
 const OpType = @import("op_type.zig").OpType;

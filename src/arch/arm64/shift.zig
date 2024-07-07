@@ -8,8 +8,3 @@ pub const Shift = enum(cs.arm64_shifter) {
     ASR = 4,
     ROR = 5,
 };
-
-pub const Shifter = extern struct {
-    type: Shift,
-    value: c_uint,
-};

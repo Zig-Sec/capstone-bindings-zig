@@ -13,7 +13,9 @@ pub const Iter = struct {
     /// Consumes the iterator and goes to the next
     pub fn next(self: *Iter) ?*Insn {
         if (cs.cs_disasm_iter(self.handle, @ptrCast(&self.code.ptr), @ptrCast(&self.code.len), &self.address, @ptrCast(self.insn))) {
-            return @ptrCast(self.insn);
+            const ret = &self.insn[0];
+            ret.normalizeStrings();
+            return ret;
         } else {
             return null;
         }

@@ -70,7 +70,7 @@ pub fn malloc(handle: Handle) [*]insn.Insn {
 
 /// Return an Iter object
 /// Does not yet consume any element.
-pub fn disasmIter(handle: Handle, code: []const u8, address: *u64, ins: []insn.Insn) Iter {
+pub fn disasmIter(handle: Handle, code: []const u8, address: u64, ins: []insn.Insn) Iter {
     return Iter{
         .handle = handle,
         .code = code,

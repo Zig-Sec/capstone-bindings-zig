@@ -1,10 +1,11 @@
-pub const cs = @import("capstone-c");
+const cs = @import("capstone-c");
 
 pub const err = @import("error.zig");
 pub const insn = @import("insn.zig");
 pub const setup = @import("setup.zig");
 pub const enums = @import("enums.zig");
 
+pub const Iter = @import("iter.zig").Iter;
 pub const Handle = cs.csh;
 
 pub fn version(major: ?*c_int, minor: ?*c_int) err.CapstoneError!void {
@@ -67,12 +68,15 @@ pub fn malloc(handle: Handle) [*]insn.Insn {
     return @ptrCast(cs.cs_malloc(handle));
 }
 
-pub fn disasmIter(handle: Handle, code: []const u8, address: *u64, ins: []insn.Insn) bool {
-    _ = handle; // autofix
-    _ = code; // autofix
-    _ = address; // autofix
-    _ = ins; // autofix
-    @panic("Not Implemented yet.");
+/// Return an Iter object
+/// Does not yet consume any element.
+pub fn disasmIter(handle: Handle, code: []const u8, address: *u64, ins: []insn.Insn) Iter {
+    return Iter{
+        .handle = handle,
+        .code = code,
+        .address = address,
+        .insn = ins,
+    };
 }
 
 pub fn regName(handle: Handle, reg_id: c_uint) [*:0]const u8 {

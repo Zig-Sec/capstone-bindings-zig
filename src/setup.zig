@@ -3,7 +3,7 @@ const std = @import("std");
 const insn = @import("insn.zig");
 const err = @import("error.zig");
 
-pub const cs = @import("capstone-c");
+const cs = @import("capstone-c");
 
 pub const MallocFunction = ?*const fn (usize) callconv(.C) ?*anyopaque;
 pub const CallocFunction = ?*const fn (usize, usize) callconv(.C) ?*anyopaque;
@@ -76,31 +76,22 @@ fn free(ptr: ?*anyopaque) callconv(.C) void {
 
 extern "C" fn vsnprintf([*c]u8, usize, [*c]const u8, [*c]cs.struct___va_list_tag_1) callconv(.C) c_int;
 
+/// Inits Capstone to be used with Zig
 pub fn initCapstone(alloc: std.mem.Allocator) err.CapstoneError!void {
-    ALLOCATOR = alloc;
-
-    const sys_mem = cs.cs_opt_mem{
-        .malloc = &malloc,
-        .calloc = &calloc,
-        .realloc = &realloc,
-        .free = &free,
-        .vsnprintf = &vsnprintf,
-    };
-
-    const err_return = cs.cs_option(0, cs.CS_OPT_MEM, @intFromPtr(&sys_mem));
-
-    if (err.toError(err_return)) |e| {
-        return e;
-    }
+    return initCapstoneManually(alloc, &malloc, &calloc, &realloc, &free, &vsnprintf);
 }
 
+/// Inits Capstone to be used with Zig
+/// however, in this option, the user provides all the functions
 pub fn initCapstoneManually(
+    alloc: std.mem.Allocator,
     malloc_fn: MallocFunction,
     calloc_fn: CallocFunction,
     realloc_fn: ReallocFunction,
     free_fn: FreeFunction,
     vsnprintf_fn: VsnprintfFunction,
 ) err.CapstoneError!void {
+    ALLOCATOR = alloc;
     const sys_mem = cs.cs_opt_mem{
         .malloc = malloc_fn,
         .calloc = calloc_fn,

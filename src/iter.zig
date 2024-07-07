@@ -21,7 +21,6 @@ pub const Iter = struct {
 
     /// Clean up the iter
     pub fn deinit(self: Iter) void {
-        cs.cs_close(self.handle);
         cs.cs_free(@ptrCast(self.insn.ptr), self.insn.len);
     }
 };

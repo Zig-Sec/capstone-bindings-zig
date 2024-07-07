@@ -9,8 +9,8 @@ Simple example, i believe i snatched it from some of the tests in capstone itsel
 
 ## Remarks
 > [!WARNING]
-> The bindings are still work in progress, but x86 architecture should work already!
-> Maybe even others, not sure haven't tested the others yet.
+> The bindings should fully work, however they are not battle-tested yet.
+> If you encounter any Issues / Bugs / API Concerns, please open an Issue.
 
 ## Future plans
 The API is probably not 100% as i want it yet, so changes are to be expected, and that's where especially you,

@@ -1,4 +1,43 @@
-pub usingnamespace @import("src/impl.zig");
-pub usingnamespace @import("src/error.zig");
-pub usingnamespace @import("src/setup.zig");
-pub usingnamespace @import("src/enums.zig");
+const impl = @import("src/impl.zig");
+pub const Iter = impl.Iter;
+pub const Handle = impl.Handle;
+pub const version = impl.version;
+pub const support = impl.support;
+pub const open = impl.open;
+pub const option = impl.option;
+pub const errno = impl.errno;
+pub const strerror = impl.strerror;
+pub const disasm = impl.disasm;
+pub const free = impl.free;
+pub const malloc = impl.malloc;
+pub const disasmIterManaged = impl.disasmIterManaged;
+pub const disasmIter = impl.disasmIter;
+pub const regName = impl.regName;
+pub const insnName = impl.insnName;
+pub const groupName = impl.groupName;
+pub const insnGroup = impl.insnGroup;
+pub const regRead = impl.regRead;
+pub const regWrite = impl.regWrite;
+pub const opCount = impl.opCount;
+pub const opIndex = impl.opIndex;
+pub const regsAccess = impl.regsAccess;
+
+const err = @import("src/error.zig");
+pub const cs = err.cs;
+pub const CapstoneError = err.CapstoneError;
+pub const toError = err.toError;
+pub const fromError = err.fromError;
+
+const setup = @import("src/setup.zig");
+pub const MallocFunction = setup.MallocFunction;
+pub const CallocFunction = setup.CallocFunction;
+pub const ReallocFunction = setup.ReallocFunction;
+pub const FreeFunction = setup.FreeFunction;
+pub const VsnprintfFunction = setup.VsnprintfFunction;
+pub const initCapstone = setup.initCapstone;
+pub const initCapstoneManually = setup.initCapstoneManually;
+
+const enums = @import("src/enums.zig");
+pub const Arch = enums.Arch;
+pub const Mode = enums.Mode;
+pub const Type = enums.Type;

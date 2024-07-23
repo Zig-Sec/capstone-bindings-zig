@@ -47,17 +47,13 @@ pub fn build(b: *std.Build) void {
     });
     const compiled_capstone = capstone.artifact("capstone");
 
-    const capstone_c = b.createModule(.{
-        .root_source_file = b.path("src/capstone/import.zig"),
+    compiled_capstone.getEmittedIncludeTree().addStepDependencies(&compiled_capstone.step);
+    const capstone_c = b.addTranslateC(.{
+        .root_source_file = compiled_capstone.getEmittedIncludeTree().path(b, "capstone/capstone.h"),
         .target = target,
         .optimize = optimize,
         .link_libc = true,
     });
-    compiled_capstone.getEmittedIncludeTree().addStepDependencies(&compiled_capstone.step);
-
-    capstone_c.addLibraryPath(compiled_capstone.getEmittedBin().dirname());
-    capstone_c.linkSystemLibrary("capstone", .{ .needed = true, .preferred_link_mode = .static });
-    capstone_c.addIncludePath(compiled_capstone.getEmittedIncludeTree());
 
     const mod = b.addModule("capstone-bindings-zig", .{
         .root_source_file = b.path("capstone.zig"),
@@ -66,10 +62,13 @@ pub fn build(b: *std.Build) void {
         .imports = &.{
             .{
                 .name = "capstone-c",
-                .module = capstone_c,
+                .module = capstone_c.createModule(),
             },
         },
     });
+    mod.addLibraryPath(compiled_capstone.getEmittedBin().dirname());
+    mod.linkSystemLibrary("capstone", .{ .needed = true, .preferred_link_mode = .static });
+    mod.addIncludePath(compiled_capstone.getEmittedIncludeTree());
 
     const mod_test = b.addTest(.{
         .root_source_file = mod.root_source_file.?,
@@ -78,7 +77,7 @@ pub fn build(b: *std.Build) void {
     });
     mod_test.step.dependOn(&compiled_capstone.step);
 
-    mod_test.root_module.addImport("capstone-c", capstone_c);
+    mod_test.root_module.addImport("capstone-c", capstone_c.createModule());
 
     const run_lib_tests = b.addRunArtifact(mod_test);
     const test_step = b.step("test", "Run the library tests");

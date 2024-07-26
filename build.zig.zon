@@ -5,7 +5,7 @@
 
     .dependencies = .{
         .capstone = .{
-            .url = "git+https://github.com/allyourcodebase/capstone.git?ref=main#a9067fbeaf0049b812a249c237e62408c3fd3df7",
+            .url = "git+https://github.com/allyourcodebase/capstone.git?ref=5.0.1#a9067fbeaf0049b812a249c237e62408c3fd3df7",
             .hash = "122062cee55ea063b596d72f2d32fc3ab60551ffc1433533ab2d79f07062d4565720",
         },
     },

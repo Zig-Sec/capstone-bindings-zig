@@ -5,7 +5,7 @@
 
     .dependencies = .{
         .capstone = .{
-            .url = "https://github.com/Zig-Sec/capstone-zig/archive/main.tar.gz",
+            .url = "https://github.com/allyourcodebase/capstone/archive/main.tar.gz",
             .hash = "1220c76dfd839d7ac6ae03dfd88aca1c00314dc9417efe9964898af7db5548109aec",
         },
     },

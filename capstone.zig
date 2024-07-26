@@ -4,6 +4,7 @@ pub const Handle = impl.Handle;
 pub const version = impl.version;
 pub const support = impl.support;
 pub const open = impl.open;
+pub const close = impl.close;
 pub const option = impl.option;
 pub const errno = impl.errno;
 pub const strerror = impl.strerror;

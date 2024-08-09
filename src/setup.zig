@@ -9,7 +9,7 @@ pub const MallocFunction = ?*const fn (usize) callconv(.C) ?*anyopaque;
 pub const CallocFunction = ?*const fn (usize, usize) callconv(.C) ?*anyopaque;
 pub const ReallocFunction = ?*const fn (?*anyopaque, usize) callconv(.C) ?*anyopaque;
 pub const FreeFunction = ?*const fn (?*anyopaque) callconv(.C) void;
-pub const VsnprintfFunction = ?*const fn ([*]u8, usize, [*]const u8, [*]cs.struct___va_list_tag_1) callconv(.C) c_int;
+pub const VsnprintfFunction = ?*const fn ([*]u8, usize, [*]const u8, [*]std.builtin.VaList) callconv(.C) c_int;
 
 var ALLOCATOR: ?std.mem.Allocator = null;
 
@@ -74,7 +74,7 @@ fn free(ptr: ?*anyopaque) callconv(.C) void {
     }
 }
 
-extern "C" fn vsnprintf([*c]u8, usize, [*c]const u8, [*c]cs.struct___va_list_tag_1) callconv(.C) c_int;
+extern "C" fn vsnprintf([*c]u8, usize, [*c]const u8, [*c]std.builtin.VaList) callconv(.C) c_int;
 
 /// Inits Capstone to be used with Zig
 pub fn initCapstone(alloc: std.mem.Allocator) err.CapstoneError!void {
